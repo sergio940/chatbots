@@ -18,7 +18,7 @@
   #chat-container {
     flex: 1;
     display: flex;
-    flex-direction: column-reverse; /* Mensajes suben */
+    flex-direction: column;
     overflow-y: auto;
     padding: 20px;
     gap: 10px;
@@ -45,7 +45,7 @@
 
   #input-container {
     display: flex;
-    position: fixed; /* Fijo en la parte inferior */
+    position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
@@ -79,7 +79,7 @@
     background: #00d4c6;
   }
 
-  /* Ajusta el espacio inferior del contenedor para que no tape mensajes */
+  /* Espacio al final para que el último mensaje no quede tapado */
   #chat-container::after {
     content: "";
     display: block;
@@ -319,53 +319,7 @@ const respuestas = [
   {keywords:["qué hacer si me siento aburrido","aburrimiento","entretenimiento"], respuesta:"Prueba un nuevo hobby, aprende algo nuevo o sal a caminar y despeja la mente."},
   {keywords:["cómo mejorar la concentración en clase","estudiar concentrado","clase atención"], respuesta:"Elimina distracciones, toma notas activamente y haz preguntas para mantener la atención."},
   {keywords:["formas de aprender programación de manera divertida","programación gamificada","coding"], respuesta:"Crea pequeños juegos, resuelve retos online y participa en hackathons."},
-  {keywords:["qué hacer para mejorar mi postura","espalda recta","ejercicios postura"], respuesta:"Haz estiramientos, fortalece tu core y ajusta la altura de sillas y mesas al sentarte."}.
-   {keywords:["buenas tardes","hola amigo","saludos"], respuesta:"¡Hola! Espero que tu día esté yendo genial."},
-  {keywords:["qué hora es","hora actual","hora"], respuesta:"No puedo decir la hora exacta, pero puedes revisarla en tu dispositivo."},
-  {keywords:["ayuda con matemáticas","problema matemático","resolver ecuación"], respuesta:"Claro, puedo guiarte paso a paso para resolver ecuaciones y problemas matemáticos."},
-  {keywords:["cómo aprender a programar","empezar con código","programación para principiantes"], respuesta:"Empieza con Python o JavaScript y sigue tutoriales prácticos para principiantes."},
-  {keywords:["tips para estudiar","consejos estudio","aprender rápido"], respuesta:"Organiza tu tiempo, haz resúmenes y toma descansos regulares mientras estudias."},
-  {keywords:["ideas de proyectos","proyectos interesantes","ideas creativas"], respuesta:"Puedes crear apps, juegos sencillos, robots o experimentos científicos."},
-  {keywords:["cómo mejorar inglés","practicar idiomas","aprender vocabulario"], respuesta:"Lee libros, escucha podcasts, mira series en el idioma y practica hablando con alguien."},
-  {keywords:["consejos para dormir mejor","dormir profundo","insomnio"], respuesta:"Mantén horarios fijos, evita pantallas antes de dormir y relájate con música suave."},
-  {keywords:["cómo organizar el tiempo","gestión de tiempo","planificación diaria"], respuesta:"Usa agendas o apps, prioriza tareas importantes y establece límites de tiempo para cada actividad."},
-  {keywords:["qué comer saludable","alimentación sana","nutrición"], respuesta:"Incluye frutas, verduras, proteínas y bebe suficiente agua todos los días."},
-  {keywords:["cómo hacer ejercicio en casa","rutina fitness","entrenamiento"], respuesta:"Haz ejercicios de fuerza, cardio y estiramientos, incluso con objetos domésticos."},
-  {keywords:["ideas para hobbies","qué hacer en casa","pasatiempos"], respuesta:"Puedes pintar, escribir, tocar un instrumento o aprender cocina creativa."},
-  {keywords:["cómo aprender sobre ciencia","experimentos divertidos","aprendizaje ciencia"], respuesta:"Prueba experimentos caseros, observa la naturaleza y usa recursos educativos online."},
-  {keywords:["consejos de relajación","reducir estrés","meditación"], respuesta:"Respira profundamente, practica meditación, yoga o escucha música tranquila."},
-  {keywords:["programar videojuegos","crear juegos","desarrollo videojuegos"], respuesta:"Empieza con motores como Unity o Godot, aprende conceptos básicos y crea pequeños juegos."},
-  {keywords:["viajar barato","destinos económicos","turismo low cost"], respuesta:"Busca vuelos con antelación, alojamiento económico y usa transporte público."},
-  {keywords:["recomendaciones de libros","qué leer","novelas interesantes"], respuesta:"Depende de tu gusto: ciencia ficción, misterio, desarrollo personal o literatura clásica."},
-  {keywords:["aprender fotografía","consejos fotografía","cámara"], respuesta:"Prueba diferentes ángulos, ilumina correctamente y experimenta con enfoque y composición."},
-  {keywords:["ideas de cocina","recetas fáciles","cocinar en casa"], respuesta:"Busca recetas sencillas con pocos ingredientes y prueba nuevas combinaciones de sabores."},
-  {keywords:["cómo cuidar mascotas","perros y gatos","mascotas"], respuesta:"Proporciona alimentación adecuada, ejercicio diario y atención a su salud."},
-  {keywords:["consejos de ahorro","finanzas personales","gestión dinero"], respuesta:"Haz un presupuesto, evita gastos innecesarios y ahorra un porcentaje fijo de tus ingresos."},
-  {keywords:["cómo empezar a dibujar","dibujo desde cero","arte creativo"], respuesta:"Practica líneas y formas simples, observa objetos y experimenta con lápices y colores."},
-  {keywords:["información sobre historia","hechos históricos","personajes famosos"], respuesta:"Puedes leer biografías, ver documentales y consultar libros de historia confiables."},
-  {keywords:["cómo mejorar memoria","recordar mejor","ejercicios cerebrales"], respuesta:"Practica repeticiones, usa asociaciones mentales y realiza ejercicios de memoria."},
-  {keywords:["programación web","crear página web","frontend"], respuesta:"Aprende HTML y CSS primero, luego JavaScript para hacer tus páginas interactivas."},
-  {keywords:["consejos para productividad","trabajo eficiente","gestión de tareas"], respuesta:"Prioriza tareas importantes, elimina distracciones y toma descansos cortos regularmente."},
-  {keywords:["ideas de entretenimiento","qué hacer en casa","actividades"], respuesta:"Puedes ver películas, escuchar música, jugar videojuegos o aprender algo nuevo."},
-  {keywords:["aprendizaje online","cursos virtuales","tutoriales"], respuesta:"Usa plataformas de aprendizaje, sigue tutoriales y practica con ejercicios reales."},
-  {keywords:["cómo mejorar concentración","atención","enfoque"], respuesta:"Evita multitasking, toma descansos regulares y usa técnicas de Pomodoro para estudiar."},
-  {keywords:["salud mental","emociones","bienestar"], respuesta:"Habla sobre tus emociones, realiza actividades que disfrutes y busca ayuda profesional si es necesario."},
-  {keywords:["inteligencia artificial","machine learning","tecnología IA"], respuesta:"La IA aprende patrones y ayuda a automatizar tareas, analizar datos o generar contenido."},
-  {keywords:["robótica educativa","robots","arduino"], respuesta:"Puedes aprender robótica construyendo robots simples y programándolos con Arduino o Raspberry Pi."},
-  {keywords:["clima y tiempo","pronóstico","meteorología"], respuesta:"Consulta apps de clima confiables o páginas web meteorológicas para estar preparado."},
-  {keywords:["consejos para cine","películas interesantes","series recomendadas"], respuesta:"Explora distintos géneros según tu gusto y revisa críticas o recomendaciones."},
-  {keywords:["cómo crear música","instrumentos","composición"], respuesta:"Aprende teoría musical básica, experimenta con sonidos y usa software de composición digital."},
-  {keywords:["cómo mejorar habilidades sociales","comunicación","relaciones"], respuesta:"Escucha activamente, mantén contacto visual, sé empático y practica conversaciones."},
-  {keywords:["curiosidades del mundo","hechos interesantes","datos"], respuesta:"Explora datos curiosos de ciencia, historia, geografía y cultura general."},
-  {keywords:["desarrollo personal","hábitos positivos","motivación"], respuesta:"Establece metas claras, mantén disciplina y celebra tus logros regularmente."},
-  {keywords:["cómo hacer experimentos","ciencia casera","proyecto científico"], respuesta:"Usa materiales simples, sigue instrucciones seguras y observa resultados cuidadosamente."},
-  {keywords:["educación financiera","invertir dinero","economía personal"], respuesta:"Infórmate antes de invertir, diversifica y aprende conceptos básicos de finanzas."},
-  {keywords:["cómo mejorar escritura","redacción","gramática"], respuesta:"Lee con frecuencia, escribe diario y revisa tus textos buscando mejoras y errores."},
-  {keywords:["formas de aprender geografía","mapas","países"], respuesta:"Usa mapas interactivos, juegos educativos y atlas para aprender sobre el mundo."},
-  {keywords:["cómo empezar con yoga","ejercicios yoga","relajación"], respuesta:"Comienza con posturas simples, respira profundamente y realiza sesiones cortas al día."},
-  {keywords:["programación avanzada","estructuras de datos","algoritmos"], respuesta:"Practica algoritmos y estructuras de datos resolviendo problemas de programación y retos online."},
-  {keywords:["cómo mejorar habilidades de comunicación","hablar en público","presentaciones"], respuesta:"Prepara tu contenido, practica y usa lenguaje corporal confiado y claro."},
-  {keywords:["recomendaciones de música","playlist","géneros"], respuesta:"Explora distintos géneros musicales y crea playlists según tu estado de ánimo o actividad."}
+  {keywords:["qué hacer para mejorar mi postura","espalda recta","ejercicios postura"], respuesta:"Haz estiramientos, fortalece tu core y ajusta la altura de sillas y mesas al sentarte."}
 ];
 
 const chatContainer = document.getElementById("chat-container");
@@ -376,7 +330,8 @@ function agregarMensaje(mensaje, tipo) {
   const div = document.createElement("div");
   div.classList.add("mensaje", tipo);
   div.textContent = mensaje;
-  chatContainer.prepend(div); // Agregar arriba
+  chatContainer.appendChild(div); // Append normal
+  chatContainer.scrollTop = chatContainer.scrollHeight; // Scroll automático
 }
 
 function obtenerRespuesta(input) {
@@ -398,6 +353,7 @@ function enviarMensaje() {
   const respuesta = obtenerRespuesta(mensaje);
   setTimeout(() => agregarMensaje(respuesta, "bot"), 300);
   userInput.value = "";
+  userInput.focus();
 }
 
 sendBtn.addEventListener("click", enviarMensaje);
