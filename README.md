@@ -2,17 +2,100 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Asistente Offline</title>
+<title>Asistente Futurista Offline</title>
 <style>
-body { font-family: Arial; background: #f0f2f5; display:flex; justify-content:center; align-items:center; height:100vh; margin:0; }
-.chat-container { width:400px; max-width:90%; background:#fff; border-radius:10px; box-shadow:0 4px 15px rgba(0,0,0,0.2); display:flex; flex-direction:column; overflow:hidden; }
-.chat-box { flex:1; padding:20px; overflow-y:auto; }
-.message { margin-bottom:15px; padding:10px 15px; border-radius:20px; max-width:75%; word-wrap:break-word; }
-.user { background:#007bff; color:white; align-self:flex-end; }
-.assistant { background:#e5e5ea; color:black; align-self:flex-start; }
-.input-box { display:flex; border-top:1px solid #ccc; }
-input { flex:1; padding:15px; border:none; outline:none; font-size:16px; }
-button { padding:15px 20px; background:#007bff; border:none; color:white; cursor:pointer; font-size:16px; }
+body {
+    margin: 0;
+    font-family: 'Orbitron', sans-serif;
+    background: #0b0c10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #00ffea;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+
+.chat-container {
+    width: 500px;
+    max-width: 95%;
+    background: #1f2833;
+    border-radius: 15px;
+    box-shadow: 0 0 40px #00ffea;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.chat-box {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    max-height: 600px;
+    display: flex;
+    flex-direction: column;
+}
+
+.message {
+    margin-bottom: 15px;
+    padding: 12px 18px;
+    border-radius: 20px;
+    max-width: 75%;
+    word-wrap: break-word;
+    font-size: 14px;
+    line-height: 1.4;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.user {
+    background: #00ffea;
+    color: #0b0c10;
+    align-self: flex-end;
+    border-bottom-right-radius: 0;
+}
+
+.assistant {
+    background: #0b0c10;
+    border: 1px solid #00ffea;
+    color: #00ffea;
+    align-self: flex-start;
+    border-bottom-left-radius: 0;
+}
+
+.input-box {
+    display: flex;
+    border-top: 1px solid #00ffea;
+}
+
+input {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    background: #1f2833;
+    color: #00ffea;
+}
+
+button {
+    padding: 15px 20px;
+    background: #00ffea;
+    border: none;
+    color: #0b0c10;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.2s;
+}
+
+button:hover {
+    background: #00d1b2;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px);}
+    to { opacity: 1; transform: translateY(0);}
+}
 </style>
 </head>
 <body>
@@ -29,7 +112,7 @@ button { padding:15px 20px; background:#007bff; border:none; color:white; cursor
 const chatBox = document.getElementById('chatBox');
 const userInput = document.getElementById('userInput');
 
-// Base de datos de preguntas y respuestas
+// Array de respuestas (puedes poner el mega array completo de 500+ aquí)
 const respuestas = [
   {keywords:["hola","buenos días","buenas"], respuesta:"¡Hola! ¿Cómo estás?" },
   {keywords:["cómo estás","qué tal"], respuesta:"Estoy bien, gracias por preguntar. ¿Y tú?" },
@@ -255,42 +338,41 @@ const respuestas = [
   {keywords:["qué hacer para mejorar mi postura","espalda recta","ejercicios postura"], respuesta:"Haz estiramientos, fortalece tu core y ajusta la altura de sillas y mesas al sentarte."}
 ];
 
-
-function appendMessage(text, sender){
-    const div=document.createElement('div');
-    div.classList.add('message', sender);
-    div.textContent=text;
-    chatBox.appendChild(div);
+function sendMessage() {
+    const text = userInput.value.trim();
+    if(!text) return;
+    
+    addMessage(text, 'user');
+    
+    const respuesta = getRespuesta(text);
+    addMessage(respuesta, 'assistant');
+    
+    userInput.value = '';
     chatBox.scrollTop = chatBox.scrollHeight;
 }
 
-function sendMessage(){
-    const mensaje=userInput.value.trim();
-    if(!mensaje) return;
-    appendMessage(mensaje,"user");
-    userInput.value="";
-
-    const texto = mensaje.toLowerCase();
-    let respuestaEncontrada = false;
-
-    for(const item of respuestas){
-        for(const key of item.keywords){
-            if(texto.includes(key)){
-                appendMessage(item.respuesta,"assistant");
-                respuestaEncontrada = true;
-                break;
-            }
-        }
-        if(respuestaEncontrada) break;
-    }
-
-    if(!respuestaEncontrada){
-        appendMessage("Lo siento, no tengo respuesta para eso.","assistant");
-    }
+function addMessage(text, type) {
+    const div = document.createElement('div');
+    div.className = `message ${type}`;
+    div.textContent = text;
+    chatBox.appendChild(div);
 }
 
-userInput.addEventListener('keypress',function(e){
-    if(e.key==='Enter') sendMessage();
+function getRespuesta(text) {
+    const lowerText = text.toLowerCase();
+    for(const item of respuestas) {
+        for(const key of item.keywords) {
+            if(lowerText.includes(key)) {
+                return item.respuesta;
+            }
+        }
+    }
+    return "Lo siento, no tengo una respuesta para eso todavía.";
+}
+
+// Permite enviar con Enter
+userInput.addEventListener('keydown', function(e){
+    if(e.key === 'Enter') sendMessage();
 });
 </script>
 
