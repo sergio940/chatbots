@@ -2,30 +2,33 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Asistente Sci-Fi Estático</title>
+<title>Asistente Futurista Offline</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
 
 body {
     margin: 0;
     font-family: 'Orbitron', sans-serif;
-    background: #0d0d0d;
+    background: #0a0a0a;
     color: #00ffea;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    overflow: hidden;
 }
 
 .chat-container {
     width: 600px;
     max-width: 95%;
+    height: 80vh;
     background: #111;
     border-radius: 15px;
-    box-shadow: 0 0 50px #00ffea, 0 0 80px #00ffea inset;
+    box-shadow: 0 0 60px #00ffea, 0 0 90px #00ffea inset;
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    position: relative;
 }
 
 .chat-box {
@@ -33,7 +36,7 @@ body {
     padding: 20px;
     overflow-y: auto;
     display: flex;
-    flex-direction: column-reverse; /* mensajes hacia arriba */
+    flex-direction: column-reverse;
     font-size: 14px;
     line-height: 1.5;
 }
@@ -49,9 +52,10 @@ body {
 
 .user {
     background: #00ffea;
-    color: #0d0d0d;
+    color: #0a0a0a;
     align-self: flex-end;
     border-bottom-right-radius: 0;
+    box-shadow: 0 0 10px #00ffea;
 }
 
 .assistant {
@@ -61,11 +65,13 @@ body {
     align-self: flex-start;
     border-bottom-left-radius: 0;
     overflow: hidden;
+    box-shadow: 0 0 10px #00ffea inset;
 }
 
 .input-box {
     display: flex;
     border-top: 1px solid #00ffea;
+    background: #111;
 }
 
 input {
@@ -78,11 +84,15 @@ input {
     color: #00ffea;
 }
 
+input::placeholder {
+    color: #00ffea99;
+}
+
 button {
     padding: 15px 20px;
     background: #00ffea;
     border: none;
-    color: #0d0d0d;
+    color: #0a0a0a;
     cursor: pointer;
     font-size: 16px;
     transition: 0.2s;
@@ -104,6 +114,24 @@ button:hover {
     0%, 50%, 100% { opacity: 1; }
     25%, 75% { opacity: 0; }
 }
+
+/* Efecto neón parpadeante de todo el contenedor */
+.chat-container::before {
+    content: '';
+    position: absolute;
+    top: -5px; bottom: -5px; left: -5px; right: -5px;
+    border: 2px solid #00ffea;
+    border-radius: 20px;
+    box-shadow: 0 0 30px #00ffea, 0 0 60px #00ffea inset;
+    pointer-events: none;
+    animation: neon 2s infinite alternate;
+}
+
+@keyframes neon {
+    0% { box-shadow: 0 0 30px #00ffea, 0 0 60px #00ffea inset; }
+    50% { box-shadow: 0 0 40px #00ffea, 0 0 80px #00ffea inset; }
+    100% { box-shadow: 0 0 30px #00ffea, 0 0 60px #00ffea inset; }
+}
 </style>
 </head>
 <body>
@@ -120,6 +148,7 @@ button:hover {
 const chatBox = document.getElementById('chatBox');
 const userInput = document.getElementById('userInput');
 
+// Aquí pones tu mega array completo de 500+ respuestas
 const respuestas = [
   {keywords:["hola","buenos días","buenas"], respuesta:"¡Hola! ¿Cómo estás?" },
   {keywords:["cómo estás","qué tal"], respuesta:"Estoy bien, gracias por preguntar. ¿Y tú?" },
@@ -345,11 +374,11 @@ const respuestas = [
   {keywords:["qué hacer para mejorar mi postura","espalda recta","ejercicios postura"], respuesta:"Haz estiramientos, fortalece tu core y ajusta la altura de sillas y mesas al sentarte."}
 ];
 
-// Enviar mensaje
+// Función para enviar mensaje
 function sendMessage() {
     const text = userInput.value.trim();
     if(!text) return;
-    
+
     addMessage(text, 'user');
     userInput.value = '';
 
@@ -357,15 +386,15 @@ function sendMessage() {
     typeResponse(respuesta);
 }
 
-// Añadir mensaje al chat
+// Añadir mensaje al chat (aparece arriba)
 function addMessage(text, type) {
     const div = document.createElement('div');
     div.className = `message ${type}`;
     div.textContent = text;
-    chatBox.prepend(div); // prepend para que aparezca arriba
+    chatBox.prepend(div);
 }
 
-// Obtener respuesta
+// Obtener respuesta por palabra clave
 function getRespuesta(text) {
     const lowerText = text.toLowerCase();
     for(const item of respuestas) {
@@ -378,7 +407,7 @@ function getRespuesta(text) {
     return "Lo siento, no tengo una respuesta para eso todavía.";
 }
 
-// Escribir respuesta como si fuera en tiempo real sin mover scroll
+// Efecto de escritura en tiempo real
 function typeResponse(text) {
     const div = document.createElement('div');
     div.className = 'message assistant';
@@ -401,7 +430,7 @@ function typeResponse(text) {
     typeChar();
 }
 
-// Permitir enviar con Enter
+// Enviar con Enter
 userInput.addEventListener('keydown', function(e){
     if(e.key === 'Enter') sendMessage();
 });
